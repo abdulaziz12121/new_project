@@ -54,7 +54,7 @@ import numpy as np
 import streamlit as st
 
 # Load the trained model
-model = joblib.load("DBSCAN_model.joblib")
+model = joblib.load("C:\Users\abuda\Dropbox\new_project\DBSCAN_model.joblib")
 
 # Streamlit app code
 st.write("Hello")
