@@ -55,7 +55,7 @@ from fastapi import FastAPI
 import uvicorn
 import joblib
 import numpy as np
-
+import streamlit as st
 # Load the trained model
 model = joblib.load('DBSCAN_model.joblib')
 
