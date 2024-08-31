@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Streamlit UI
-# st.title("Machine Learning Prediction")
+st.title("Machine Learning Prediction")
 
 # yellow = st.number_input("Age of the student", min_value=15, max_value=18)
 # red = st.selectbox("Gender of the student", [0, 1])
