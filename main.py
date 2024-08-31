@@ -47,7 +47,7 @@
 #     data = preprocessing(input_features)
 #     y_pred = model.predict(data)
 #     return {"pred": y_pred.tolist()[0]}
-# from fastapi import FastAPI
+from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import numpy as np

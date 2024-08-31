@@ -1,5 +1,8 @@
 pydantic 
 fastapi  
 uvicorn
-joblib
+joblib 
 numpy 
+streamlit
+sklearn 
+scikit-learn
