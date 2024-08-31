@@ -57,11 +57,17 @@ import joblib
 import numpy as np
 import streamlit as st
 # Load the trained model
-# model = joblib.load('DBSCAN_model.joblib')
-import streamlit as st
+# Load the trained model
+model = joblib.load('DBSCAN_model.joblib')
 
 # Streamlit app code
 st.write("Hello")
+
+# Get user input values using Streamlit widgets
+yellow = st.number_input('Enter the value for yellow:', min_value=0.0)
+red = st.number_input('Enter the value for red:', min_value=0.0)
+position_encoded = st.number_input('Enter the value for position_encoded:', step=1)
+
 # FastAPI app instance
 app = FastAPI()
 
@@ -75,7 +81,6 @@ class InputFeatures(BaseModel):
 @app.post("/predict")
 async def predict(data: InputFeatures):
     features = np.array([data.yellow, data.red, data.position_encoded]).reshape(1, -1)
-    prediction = model.fit_predict(features)
+    prediction = model.predict(features)
     return {"prediction": prediction.tolist()}
-
 
