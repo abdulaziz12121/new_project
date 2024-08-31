@@ -47,14 +47,14 @@
 #     data = preprocessing(input_features)
 #     y_pred = model.predict(data)
 #     return {"pred": y_pred.tolist()[0]}
-from fastapi import FastAPI
+# from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import numpy as np
 import streamlit as st
 
 # Load the trained model
-model = joblib.load("C:\Users\abuda\Dropbox\new_project\DBSCAN_model.joblib")
+model = joblib.load("DBSCAN_model.joblib")
 
 # Streamlit app code
 st.write("Hello")
@@ -65,7 +65,7 @@ red = st.number_input('Enter the value for red:', min_value=0.0)
 position_encoded = st.number_input('Enter the value for position_encoded:', step=1)
 
 # FastAPI app instance
-app = FastAPI()
+
 
 # Pydantic model for input data validation
 class InputFeatures(BaseModel):
