@@ -1,82 +1,18 @@
-# from fastapi import FastAPI, HTTPException
-# import pickle
-# from pydantic import BaseModel
-# from fastapi import FastAPI
-# import uvicorn
-# import joblib
-
-# model = joblib.load('DBSCAN_model.joblib')
-# scaler = joblib.load('Models/scaler.joblib')
-
-# # model=pickle.load(open('train_model.sav','rb'))
-
-# app = FastAPI()
-
-
-# class InputFeatures(BaseModel):
-#     yellow:float
-#     red:float
-#     position_encoded:int
-    
-# def preprocessing(input_features: InputFeatures):
-#         dict_f = {
-#     'yellow': input_features.yellow,
-#         'red': input_features.red,
-#     'position_encoded': input_features.position_encoded,
-
-#     }
-#         return dict_f
-
-    
-# @app.get("/predict")
-# def predict(input_features: InputFeatures):
-#     return preprocessing(input_features)
-
-# # @app.get("/predict")
-# # def predict(input_features: InputFeatures):
-# #       dict_f = {
-# #     'yellow': input_features.yellow,
-# #         'red': input_features.red,
-# #     'position_encoded': input_features.position_encoded,
-
-# #     }
-# #       predict=model(dict_f)
-
-# @app.post("/predict")
-# async def predict(input_features: InputFeatures):
-#     data = preprocessing(input_features)
-#     y_pred = model.predict(data)
-#     return {"pred": y_pred.tolist()[0]}
-from fastapi import FastAPI
-from pydantic import BaseModel
-import joblib
-import numpy as np
 import streamlit as st
+import requests
 
-# Load the trained model
-model = joblib.load("DBSCAN_model.joblib")
+# Streamlit UI
+st.title("Machine Learning Prediction")
 
-# Streamlit app code
-st.write("Hello")
+yellow = st.number_input("Age of the student", min_value=15, max_value=18)
+red = st.selectbox("Gender of the student", [0, 1])
+position_encoded = st.selectbox("Ethnicity", [0, 1, 2, 3])
 
-# # Get user input values using Streamlit widgets
-# yellow = st.number_input('Enter the value for yellow:', min_value=0.0)
-# red = st.number_input('Enter the value for red:', min_value=0.0)
-# position_encoded = st.number_input('Enter the value for position_encoded:', step=1)
-
-# # FastAPI app instance
-
-
-# # Pydantic model for input data validation
-# class InputFeatures(BaseModel):
-#     yellow: float
-#     red: float
-#     position_encoded: int
-
-# # Endpoint for model prediction
-# @app.post("/predict")
-# async def predict(data: InputFeatures):
-#     features = np.array([data.yellow, data.red, data.position_encoded]).reshape(1, -1)
-#     prediction = model.predict(features)
-#     return {"prediction": prediction.tolist()}
-
+if st.button("Predict"):
+    response = requests.get("http://localhost:8000/predict", params={"yellow": yellow, "red": red, "position_encoded": position_encoded})
+    
+    if response.status_code == 200:
+        predictions = response.json()
+        st.write("Predictions:", predictions)
+    else:
+        st.error("Prediction failed. Please check your inputs.")
