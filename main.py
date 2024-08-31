@@ -75,7 +75,4 @@ async def predict(data: InputFeatures):
     prediction = model.fit_predict(features)
     return {"prediction": prediction.tolist()}
 
-# Run the FastAPI app
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+
