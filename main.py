@@ -58,7 +58,10 @@ import numpy as np
 import streamlit as st
 # Load the trained model
 # model = joblib.load('DBSCAN_model.joblib')
+import streamlit as st
 
+# Streamlit app code
+st.write("Hello")
 # FastAPI app instance
 app = FastAPI()
 
